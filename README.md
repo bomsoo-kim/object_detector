@@ -1,14 +1,12 @@
 # Simple OCR Engine with Faster-RCNN
 ## 1. Introduction
-The code is totally based on the excellent work written by Yun Chen (https://github.com/chenyuntc/simple-faster-rcnn-pytorch)
+The code is totally based on the excellent work, written by Yun Chen (https://github.com/chenyuntc/simple-faster-rcnn-pytorch). I also adopted the idea of using Resnet backbone from Bart Trzynadlowski
+(https://github.com/trzy/FasterRCNN). Before I came into his implementation, I didn't know that freezing the parameters of batch normalization layers is critical to properly fine-tune the pre-trained model. The implementation written by Jianwei Yang (https://github.com/jwyang/faster-rcnn.pytorch) will be very useful but may not be really easy to start with for beginners.
 
+## 2. Peformance on PASCAL VOC 2007 Dataset
 
-
-
-
-
-
-## 2. Peformance on VOC2007 Dataset
+Here, 'mAP_07' is the PASCAL VOC 2007 evaluation metric for calculating average precision. And, 'mAP' is the later version for more accurate calculation. 
+I checked that the performance on VOC 2007 Dataset is similar to what was already reported and that the use of Resnet backbone considerably boots the performance. 
 
 (1) VGG backbone:
 | epoch | lr | mAP_07 | mAP | total_loss | rpn_loc_loss | rpn_cls_loss | roi_loc_loss | roi_cls_loss |
@@ -43,8 +41,8 @@ The code is totally based on the excellent work written by Yun Chen (https://git
 | 9 | 0.001 | 0.75053 | 0.777591 | 0.345579 | 0.038518 | 0.042075 | 0.15336 | 0.111626 |
 | 10 | 0.0001 | 0.776109 | 0.810495 | 0.25431 | 0.029196 | 0.025776 | 0.11561 | 0.083728 |
 | 11 | 0.0001 | 0.778772 | 0.810525 | 0.239215 | 0.027688 | 0.023442 | 0.108456 | 0.079629 |
-| 12 | 0.0001 | 0.780056 | 0.813081 | 0.230916 | 0.026561 | 0.021572 | 0.105736 | 0.077047 |
-| 13 | 0.0001 | **0.780067** | **0.809398** | 0.225224 | 0.026156 | 0.021053 | 0.103375 | 0.07464 |
+| 12 | 0.0001 | 0.780056 | **0.813081** | 0.230916 | 0.026561 | 0.021572 | 0.105736 | 0.077047 |
+| 13 | 0.0001 | **0.780067** | 0.809398 | 0.225224 | 0.026156 | 0.021053 | 0.103375 | 0.07464 |
 
 
 ## 3. OCR Application
