@@ -52,7 +52,7 @@ At first, I struggled, trying to dectect every single text character on an image
 For each step, I generated random text charater sequences for training datasets. I think that this random character approach is okay with the text detection part, but it can result in quite a few erronious predictions with text recognition part, as there are many similar characters: e.g. (1) o vs. O vs. 0, (2) p vs. P, (3) s vs. S, (4) l vs. I vs. ] vs. [ vs. 1, etc. For the training of text recognition, using real dictionary words can improve the accuracy, as the model is trained to the most probable neighboring characters in the real world. 
 
 On the other hand, I needed to refine or upgrade the model or its parameters to better perform on my customized OCR datasets:
-- more refined anchor scales ratios, to better detect small objects
+- more refined anchor scales and ratios, to better detect small objects
 - use of ROI Align scheme
 - use of Resnet backbone (cf. dont' forget freezing batch norm layer parameters), if it's beneficial.
 
