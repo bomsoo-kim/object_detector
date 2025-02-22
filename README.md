@@ -1,14 +1,12 @@
 # Simple OCR Engine with Faster-RCNN
 ## 1. Introduction
-The code is totally based on the excellent work written by Yun Chen (https://github.com/chenyuntc/simple-faster-rcnn-pytorch)
+The code is totally based on the excellent work, written by Yun Chen (https://github.com/chenyuntc/simple-faster-rcnn-pytorch). I also adopted the idea of using Resnet backbone from Bart Trzynadlowski
+(https://github.com/trzy/FasterRCNN). Before I came into his implementation, I didn't know that freezing the parameters of batch normalization layers is critical to properly fine-tune the pre-trained model. The implementation written by Jianwei Yang (https://github.com/jwyang/faster-rcnn.pytorch) will be very useful but may not be really easy to start with for beginners.
 
+## 2. Peformance on PASCAL VOC 2007 Dataset
 
-
-
-
-
-
-## 2. Peformance on VOC2007 Dataset
+Here, 'mAP_07' is the PASCAL VOC 2007 evaluation metric for calculating average precision. And, 'mAP' is the later version for more accurate calculation. 
+I checked that the performance on VOC 2007 Dataset is similar to what was already reported and that the use of Resnet backbone considerably boots the performance. 
 
 (1) VGG backbone:
 | epoch | lr | mAP_07 | mAP | total_loss | rpn_loc_loss | rpn_cls_loss | roi_loc_loss | roi_cls_loss |
@@ -43,8 +41,37 @@ The code is totally based on the excellent work written by Yun Chen (https://git
 | 9 | 0.001 | 0.75053 | 0.777591 | 0.345579 | 0.038518 | 0.042075 | 0.15336 | 0.111626 |
 | 10 | 0.0001 | 0.776109 | 0.810495 | 0.25431 | 0.029196 | 0.025776 | 0.11561 | 0.083728 |
 | 11 | 0.0001 | 0.778772 | 0.810525 | 0.239215 | 0.027688 | 0.023442 | 0.108456 | 0.079629 |
-| 12 | 0.0001 | 0.780056 | 0.813081 | 0.230916 | 0.026561 | 0.021572 | 0.105736 | 0.077047 |
-| 13 | 0.0001 | **0.780067** | **0.809398** | 0.225224 | 0.026156 | 0.021053 | 0.103375 | 0.07464 |
+| 12 | 0.0001 | 0.780056 | **0.813081** | 0.230916 | 0.026561 | 0.021572 | 0.105736 | 0.077047 |
+| 13 | 0.0001 | **0.780067** | 0.809398 | 0.225224 | 0.026156 | 0.021053 | 0.103375 | 0.07464 |
 
 
-## 3. Inference on Text Images
+## 3. OCR Application
+The object detectors, like faster-RCNN, can be immediately trained for OCR applications, where the target objects on images are simply text. 
+At first, I struggled, trying to dectect every single text character on an image of large size. This approach implies that there can be many kinds of labels (or classes) and also many objects (or class instances) to detect in the first place, which can make models slowly converge for training. Instead, I took a presumably well-known and classical, 2-step approach: (1) first, detect text area; (2) and then recognize text characters on each detected area. I think this approach has the advantage of reduced training complexity in that (1) there is only one class, i.e. whether it is text or not, on a large image; and that (2) there are many classes, e.g. alpha-numeric characters and other symbols, but on a small chopped box image. 
+
+For each step, I generated random text charater sequences for training datasets. I think that this random character approach is okay with the text detection part, but it can result in quite a few erronious predictions with text recognition part, as there are many similar characters: e.g. (1) o vs. O vs. 0, (2) p vs. P, (3) s vs. S, (4) l vs. I vs. ] vs. [ vs. 1, etc. For the training of text recognition, using real dictionary words can improve the accuracy, as the model is trained to the most probable neighboring characters in the real world. 
+
+On the other hand, I needed to refine or upgrade the model or its parameters to better perform on my customized OCR datasets:
+- more refined anchor scales and ratios, to better detect small objects
+- use of ROI Align scheme
+- use of Resnet backbone (cf. dont' forget freezing batch norm layer parameters), if it's beneficial.
+
+### 3.1 Train/Validation
+(1) Text detection: training image with label (left) vs. predicted bounding boxes/labels/confidences (right); Note that there is only one label, called 'text'.
+![image](https://github.com/user-attachments/assets/7785564e-9803-4217-826c-ee68a0a6b053)
+![image](https://github.com/user-attachments/assets/09e6bc17-8300-4e5a-a89f-10c29546a333)
+
+(2) Text recognition: training image with label (left) vs. predicted bounding boxes/labels/confidences (right)
+![image](https://github.com/user-attachments/assets/b12f3796-0b0d-4b22-bce7-0eb179562b87)
+![image](https://github.com/user-attachments/assets/2112141f-04e5-4b3a-9d87-e6d1df81b1dc)
+
+
+### 3.2 Inference
+Here are some inference results (bounding boxes in read and labels on top of each) on real-world images or documents. 
+![image](https://github.com/user-attachments/assets/f870f006-8390-48df-8f55-7fcb4e46c17e)
+
+![image](https://github.com/user-attachments/assets/30ae3f2b-065c-4110-9379-109d339b675c)
+
+![image](https://github.com/user-attachments/assets/428e1f95-725d-4347-ac6e-3b012f34050e)
+
+
