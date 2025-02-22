@@ -47,7 +47,14 @@ I checked that the performance on VOC 2007 Dataset is similar to what was alread
 
 ## 3. OCR Application
 The object detectors, like faster-RCNN, can be immediately trained for OCR applications, where the target objects on images are simply text. 
-At first, I struggled, trying to dectect every single text character on an image with large size. This approach implies that there can be many kinds of labels (or classes) and also many objects (or class instances) to detect in the first place, which can make models slowly converge for training. Instead, I took a presumably well-known and classical, 2-step approach: (1) first, detect text area; (2) and then recognize text characters on each detected text area. I think this approach has the advantage that (1) there is only one class, i.e. whether it is text or not, on a large image; and that (2) there are many classes, e.g. alpha-numeric characters and other symbols, yet on a small chopped box image. 
+At first, I struggled, trying to dectect every single text character on an image with large size. This approach implies that there can be many kinds of labels (or classes) and also many objects (or class instances) to detect in the first place, which can make models slowly converge for training. Instead, I took a presumably well-known and classical, 2-step approach: (1) first, detect text area; (2) and then recognize text characters on each detected text area. I think this approach has the advantage that (1) there is only one class, i.e. whether it is text or not, on a large image; and that (2) there are many classes, e.g. alpha-numeric characters and other symbols, but on a small chopped box image. 
+
+For each step, I randomly generated text charater sequence for training datasets. 
+
+On the other hand, I needed to fine-tune or upgrade the models or parameters to better perform on my customized OCR datasets:
+- more refined anchor scales ratios, to better detect small objects
+- use of ROI Align scheme
+- use of Resnet backbone (cf. dont' forget freezing batch norm layer parameters), if it's beneficial
 
 ### 3.1 Train/Validation
 (1) Text detection
