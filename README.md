@@ -57,7 +57,7 @@ On the other hand, I needed to refine or upgrade the model or its parameters to 
 - use of Resnet backbone (cf. dont' forget freezing batch norm layer parameters), if it's beneficial.
 
 ### 3.1 Train/Validation
-(1) Text detection: training image with label (left) vs. predicted bounding boxes/labels/confidences (right), note that there is only one label, called 'text'.
+(1) Text detection: training image with label (left) vs. predicted bounding boxes/labels/confidences (right); Note that there is only one label, called 'text'.
 ![image](https://github.com/user-attachments/assets/7785564e-9803-4217-826c-ee68a0a6b053)
 ![image](https://github.com/user-attachments/assets/09e6bc17-8300-4e5a-a89f-10c29546a333)
 
