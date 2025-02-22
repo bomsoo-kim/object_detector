@@ -47,4 +47,22 @@ The code is totally based on the excellent work written by Yun Chen (https://git
 | 13 | 0.0001 | **0.780067** | **0.809398** | 0.225224 | 0.026156 | 0.021053 | 0.103375 | 0.07464 |
 
 
-## 3. Inference on Text Images
+## 3. OCR Application
+### 3.1 Train/Validation
+(1) Text detection
+![image](https://github.com/user-attachments/assets/7785564e-9803-4217-826c-ee68a0a6b053)
+![image](https://github.com/user-attachments/assets/09e6bc17-8300-4e5a-a89f-10c29546a333)
+
+(2) Text recognition
+![image](https://github.com/user-attachments/assets/b12f3796-0b0d-4b22-bce7-0eb179562b87)
+![image](https://github.com/user-attachments/assets/2112141f-04e5-4b3a-9d87-e6d1df81b1dc)
+
+
+### 3.2 Inference
+![image](https://github.com/user-attachments/assets/f870f006-8390-48df-8f55-7fcb4e46c17e)
+
+![image](https://github.com/user-attachments/assets/30ae3f2b-065c-4110-9379-109d339b675c)
+
+![image](https://github.com/user-attachments/assets/428e1f95-725d-4347-ac6e-3b012f34050e)
+
+
