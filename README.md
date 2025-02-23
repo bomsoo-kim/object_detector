@@ -54,7 +54,7 @@ For each step, I generated random text charater sequences for training datasets.
 On the other hand, I needed to refine or upgrade the model or its parameters to better perform on my customized OCR datasets:
 - more refined anchor scales and ratios, to better detect small objects
 - use of ROI Align scheme
-- use of Resnet backbone (cf. dont' forget freezing batch norm layer parameters), if it's beneficial.
+- use of Resnet backbone, if it's beneficial.
 
 ### 3.1 Train/Validation
 (1) Text detection: training image with label (left) vs. predicted bounding boxes/labels/confidences (right); Note that there is only one label, called 'text'.
