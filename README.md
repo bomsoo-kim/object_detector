@@ -67,7 +67,7 @@ On the other hand, I needed to refine or upgrade the model or its parameters to 
 
 
 ### 3.2 Inference
-Here are some inference results (bounding boxes in read and labels on top of each) on real-world images or documents. 
+Here are some inference results (bounding boxes in red and labels on top of each) on real-world images or documents. 
 ![image](https://github.com/user-attachments/assets/f870f006-8390-48df-8f55-7fcb4e46c17e)
 
 ![image](https://github.com/user-attachments/assets/30ae3f2b-065c-4110-9379-109d339b675c)
