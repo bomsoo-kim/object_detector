@@ -9,7 +9,8 @@ def group_text_into_line(list_text_xyxy, alpha=1.0, debug=False):
     """
     uid_to_word_map = {}
     for uid, (text, (x0,y0,x1,y1)) in enumerate(list_text_xyxy):
-        uid_to_word_map[uid] = (text, (x0,y0,x1,y1))
+        if text:
+            uid_to_word_map[uid] = (text, (x0,y0,x1,y1))
 
     #================================================================
     seqs = {} # text sequences

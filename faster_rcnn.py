@@ -4953,20 +4953,22 @@ if __name__=='__main__':
 class BradOCR:
     def __init__(
             self, 
-            filepath_model_word=None, filepath_model_char=None, n_test_pre_nms=12000, n_test_post_nms=2000,
+            filepath_model_word=None, filepath_model_char=None, 
+            n_test_pre_nms_WORD=12000, n_test_post_nms_WORD=2000,
+            n_test_pre_nms_CHAR=600, n_test_post_nms_CHAR=100,
             label_names_char = list('''0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+-={}|[]\:";'<>?,./'''), # full except: `
             ):
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
         #--- load models ----------------------------------
         reloaded_word = torch.load(filepath_model_word, map_location=torch.device(device))
-        reloaded_word['model_init_inputs']['n_test_pre_nms'] = n_test_pre_nms # modify model inputs
-        reloaded_word['model_init_inputs']['n_test_post_nms'] = n_test_post_nms # modify model inputs
+        reloaded_word['model_init_inputs']['n_test_pre_nms'] = n_test_pre_nms_WORD # modify model inputs
+        reloaded_word['model_init_inputs']['n_test_post_nms'] = n_test_post_nms_WORD # modify model inputs
         print(f">> reloaded_word['model_init_inputs'] = {reloaded_word['model_init_inputs']}")
 
         reloaded_char = torch.load(filepath_model_char, map_location=torch.device(device))
-        reloaded_char['model_init_inputs']['n_test_pre_nms'] = n_test_pre_nms # modify model inputs
-        reloaded_char['model_init_inputs']['n_test_post_nms'] = n_test_post_nms # modify model inputs
+        reloaded_char['model_init_inputs']['n_test_pre_nms'] = n_test_pre_nms_CHAR # modify model inputs
+        reloaded_char['model_init_inputs']['n_test_post_nms'] = n_test_post_nms_CHAR # modify model inputs
         print(f">> reloaded_char['model_init_inputs'] = {reloaded_char['model_init_inputs']}")
 
         #--- load model ----------------------------------
